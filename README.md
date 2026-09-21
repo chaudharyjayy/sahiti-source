@@ -1,29 +1,36 @@
-# Welcome to your Lovable project
+# Sahiti
 
-This project was built with [Lovable](https://lovable.dev).
+Business advisory prototype for rural micro-entrepreneurs. Built for Smart India Hackathon 2026 (MoSJE problem statement 26091).
 
-## Build with Lovable
+Plan a loan, prepare documents, read local market risk, track ROI, and ask questions in plain language.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Stack
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- TanStack Start + React + TypeScript
+- Tailwind CSS
+- Supabase
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Local setup
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
 
-## Built with
+Open [http://localhost:8080](http://localhost:8080).
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Copy `.env` values from your team before first run. Do not commit secrets.
+
+## Scripts
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview the build |
+| `npm run lint` | ESLint |
+| `npm run format` | Prettier |
+
+## Team
+
+Team Sahiti.
