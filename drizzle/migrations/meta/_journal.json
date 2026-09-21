@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789845213598,
+      "tag": "0000_create_sahiti_core",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789845230293,
+      "tag": "0001_secure_business_image_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789873743287,
+      "tag": "0002_add_loan_monitor_and_scheme_applications",
+      "breakpoints": true
+    }
+  ]
+}
