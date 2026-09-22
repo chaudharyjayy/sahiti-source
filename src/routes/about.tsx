@@ -38,12 +38,17 @@ function About() {
     <div className="flex min-h-dvh flex-col">
       <PublicHeader />
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-12 sm:px-6">
-        <img
-          src={marketImg}
-          alt="Shop fronts along a Pune suburban market road"
-          className="mb-8 h-52 w-full rounded-lg object-cover"
-        />
-        <h1 className="text-3xl font-semibold text-primary">About Sahiti</h1>
+        <div className="overflow-hidden rounded-lg border shadow-[0_18px_50px_rgb(30_58_138_/_0.08)]">
+          <img
+            src={marketImg}
+            alt="Fresh vegetables and fruit stacked at a Delhi market stall"
+            className="h-56 w-full object-cover"
+          />
+        </div>
+        <p className="sahiti-kicker mt-10 text-primary">About the project</p>
+        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-primary">
+          About Sahiti
+        </h1>
 
         <div className="mt-6 space-y-5 text-sm leading-7 text-muted-foreground">
           <p>
@@ -57,14 +62,17 @@ function About() {
             people who have already borrowed. Sahiti tries to put it in one place.
           </p>
 
-          <h2 className="text-lg font-semibold text-foreground">What is inside</h2>
-          <ul className="list-disc space-y-2 pl-5">
+          <h2 className="font-display text-xl font-semibold text-foreground">What is inside</h2>
+          <ul className="space-y-3">
             {INCLUDED.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex gap-3">
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-saffron" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
             ))}
           </ul>
 
-          <h2 className="text-lg font-semibold text-foreground">What it is not</h2>
+          <h2 className="font-display text-xl font-semibold text-foreground">What it is not</h2>
           <p>
             Sahiti is not a lender, not a government portal and not a financial adviser. Scheme
             terms and eligibility change, so confirm them with the bank or on udyamimitra.in before

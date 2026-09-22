@@ -14,7 +14,7 @@ export function PublicHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-40 bg-primary text-primary-foreground shadow-[0_8px_28px_rgb(24_37_58_/_0.18)]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" aria-label="Sahiti home">
           <BrandLogo compact invert />
@@ -29,7 +29,7 @@ export function PublicHeader() {
               {link.label}
             </Link>
           ))}
-          <Button asChild className="bg-saffron text-foreground hover:bg-saffron/90">
+          <Button asChild className="bg-saffron font-semibold text-foreground hover:bg-saffron/90">
             <Link to="/auth">Get Started</Link>
           </Button>
         </nav>
@@ -57,7 +57,7 @@ export function PublicHeader() {
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="bg-saffron text-foreground hover:bg-saffron/90">
+            <Button asChild className="bg-saffron font-semibold text-foreground hover:bg-saffron/90">
               <Link to="/auth">Get Started</Link>
             </Button>
           </div>

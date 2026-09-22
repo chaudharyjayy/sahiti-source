@@ -6,6 +6,7 @@ import appCss from "../styles.css?url";
 import { LanguageProvider } from "../lib/i18n";
 import { SessionProvider } from "../lib/session";
 import { Toaster } from "../components/ui/sonner";
+import { TooltipProvider } from "../components/ui/tooltip";
 
 function NotFoundComponent() {
   return (
@@ -90,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap",
       },
       {
         rel: "stylesheet",
@@ -126,9 +127,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <LanguageProvider>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-          <Toaster />
+          <TooltipProvider delayDuration={200}>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+            <Toaster />
+          </TooltipProvider>
         </LanguageProvider>
       </SessionProvider>
     </QueryClientProvider>

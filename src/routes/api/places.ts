@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ShopCategory } from "@/data/shops";
+import { serverSecret } from "@/lib/loadDotEnv";
 import {
   GOOGLE_PLACE_TYPES,
   categoryForGoogleTypes,
@@ -77,8 +78,7 @@ export const Route = createFileRoute("/api/places")({
        * hide the Google panel entirely instead of offering a button that
        * cannot work. Costs nothing, unlike a real search.
        */
-      GET: async () =>
-        reply({ enabled: Boolean(process.env["GOOGLE_MAPS_API_KEY"]) }, 200),
+      GET: async () => reply({ enabled: Boolean(serverSecret("GOOGLE_MAPS_API_KEY")) }, 200),
 
       POST: async ({ request }) => {
         // Validate the caller's input before looking at our own configuration,
@@ -99,7 +99,7 @@ export const Route = createFileRoute("/api/places")({
           return reply({ error: "Coordinates are outside the supported area" }, 400);
         }
 
-        const apiKey = process.env["GOOGLE_MAPS_API_KEY"];
+        const apiKey = serverSecret("GOOGLE_MAPS_API_KEY");
         if (!apiKey) {
           return reply({ error: "Google Places is not configured" }, 501);
         }

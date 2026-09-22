@@ -11,6 +11,7 @@
 
 @theme inline {
   --font-sans: "IBM Plex Sans", "Segoe UI", "Nirmala UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "IBM Plex Sans", Georgia, "Times New Roman", serif;
   --radius-sm: 4px;
   --radius-md: 10px;
   --radius-lg: 12px;
@@ -161,8 +162,10 @@
 
   body {
     background-color: var(--color-background);
-    background-image: radial-gradient(900px 420px at 0% -10%, rgb(255 153 51 / 0.12), transparent 55%),
-      radial-gradient(800px 360px at 100% 0%, rgb(30 58 138 / 0.08), transparent 50%);
+    background-image:
+      radial-gradient(1100px 520px at -8% -12%, rgb(255 153 51 / 0.14), transparent 58%),
+      radial-gradient(900px 420px at 108% -4%, rgb(30 58 138 / 0.1), transparent 52%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.55), transparent 28rem);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     /* dvh tracks the mobile URL bar, so the page does not resize mid-scroll. */
@@ -174,6 +177,19 @@
      * creating one.
      */
     overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   :focus-visible {
@@ -181,17 +197,68 @@
     outline-offset: 2px;
   }
 
-  /* Respect a user's reduced-motion preference for smooth scrolling too. */
   img,
   table {
     max-width: 100%;
+  }
+
+  a,
+  button {
+    transition:
+      color 180ms ease,
+      background-color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 160ms ease,
+      opacity 180ms ease;
   }
 }
 
 @layer components {
   .sahiti-saffron-bar {
     height: 3px;
-    background: var(--saffron);
+    background: linear-gradient(90deg, var(--saffron), #ffb45c 55%, var(--saffron));
+  }
+
+  .sahiti-panel {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--color-card) 92%, white);
+    box-shadow: 0 1px 0 rgb(24 37 58 / 0.03), 0 12px 32px rgb(30 58 138 / 0.05);
+  }
+
+  .sahiti-panel-hover {
+    transition:
+      border-color 180ms ease,
+      box-shadow 220ms ease,
+      transform 180ms ease;
+  }
+
+  .sahiti-panel-hover:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+    box-shadow: 0 1px 0 rgb(24 37 58 / 0.04), 0 18px 40px rgb(30 58 138 / 0.1);
+    transform: translateY(-1px);
+  }
+
+  .sahiti-kicker {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--saffron);
+  }
+
+  .sahiti-reveal {
+    animation: sahiti-rise 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sahiti-reveal-delay {
+    animation-delay: 120ms;
+  }
+
+  .sahiti-reveal-delay-2 {
+    animation-delay: 220ms;
   }
 
   /*
@@ -285,6 +352,39 @@
   100% {
     transform: scale(1.8);
     opacity: 0;
+  }
+}
+
+@keyframes sahiti-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sahiti-hero-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.sahiti-hero-media {
+  animation: sahiti-hero-zoom 8s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sahiti-reveal,
+  .sahiti-reveal-delay,
+  .sahiti-reveal-delay-2,
+  .sahiti-hero-media {
+    animation: none !important;
   }
 }
 

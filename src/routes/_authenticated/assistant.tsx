@@ -152,7 +152,14 @@ function Assistant() {
 
       if (!response.ok || !response.body) {
         const detail = await response.text();
-        throw new Error(detail.slice(0, 200) || "The assistant could not reply");
+        let message = "The assistant could not reply";
+        try {
+          const parsed = JSON.parse(detail) as { error?: string };
+          if (parsed.error) message = parsed.error;
+        } catch {
+          if (detail.trim()) message = detail.slice(0, 200);
+        }
+        throw new Error(message);
       }
 
       const reader = response.body.getReader();
@@ -211,7 +218,7 @@ function Assistant() {
       />
 
       <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
-        <aside className="rounded-md border p-4">
+        <aside className="sahiti-panel p-4">
           <Button
             className="w-full"
             variant="outline"
@@ -232,8 +239,10 @@ function Assistant() {
                   type="button"
                   onClick={() => setThreadId(thread.id)}
                   className={cn(
-                    "min-w-0 flex-1 truncate px-2 py-2 text-left text-sm",
-                    threadId === thread.id ? "bg-secondary font-medium" : "hover:bg-secondary",
+                    "min-w-0 flex-1 truncate rounded-md px-2 py-2 text-left text-sm",
+                    threadId === thread.id
+                      ? "bg-primary font-medium text-primary-foreground"
+                      : "hover:bg-secondary",
                   )}
                 >
                   {thread.title}
@@ -254,7 +263,7 @@ function Assistant() {
           </ul>
         </aside>
 
-        <div className="flex h-[70dvh] min-h-[420px] flex-col rounded-md border">
+        <div className="sahiti-panel flex h-[70dvh] min-h-[420px] flex-col overflow-hidden">
           <Conversation className="flex-1" initial="instant" resize="instant">
             <ConversationContent>
               {messages.length === 0 && !streaming && (

@@ -202,7 +202,7 @@ function Feed() {
           </TabsContent>
 
           <TabsContent value="community" className="mt-6 space-y-6">
-            <div className="rounded-md border p-5">
+            <div className="sahiti-panel p-5">
               <Label htmlFor="post">Share a business note</Label>
               <Textarea
                 id="post"
@@ -237,7 +237,7 @@ function Feed() {
         </Tabs>
 
         <aside className="space-y-4">
-          <div className="rounded-md border p-5">
+          <div className="sahiti-panel p-5">
             <Label htmlFor="search">Search this section</Label>
             <div className="mt-2 flex items-center gap-2">
               <Search aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
@@ -250,7 +250,7 @@ function Feed() {
               />
             </div>
           </div>
-          <div className="rounded-md border bg-secondary p-4 text-xs leading-6 text-muted-foreground">
+          <div className="sahiti-panel bg-secondary p-4 text-xs leading-6 text-muted-foreground">
             Schemes and Sahiti holds official notes. Community is for members. Open a thread for the
             full post; tagged schemes still show terms. Confirm finals with the bank.
           </div>
@@ -301,12 +301,12 @@ function PostList({
         return (
           <article
             key={post.id}
-            className="rounded-md border p-5 transition-colors hover:border-primary/60"
+            className="sahiti-panel sahiti-panel-hover p-5"
           >
             <header className="flex items-start gap-3">
               <span
                 aria-hidden="true"
-                className="flex size-10 shrink-0 items-center justify-center bg-primary text-sm font-semibold text-primary-foreground"
+                className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground"
               >
                 {post.author_initials}
               </span>

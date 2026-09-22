@@ -29,139 +29,131 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
+const STEPS = [
+  {
+    n: "01",
+    title: "Loan calculator",
+    body: "Turn your margin capital into project cost, loan size, and a repayment table you can read.",
+    image: shopImg,
+    alt: "Snack shelves in a neighbourhood kirana shop in Maharashtra",
+  },
+  {
+    n: "02",
+    title: "Document guide",
+    body: "Know which papers the bank will ask for before you queue at the branch.",
+    image: documentsImg,
+    alt: "Hands filling in paperwork on a desk",
+  },
+  {
+    n: "03",
+    title: "Market check",
+    body: "Real Lohegaon shops on the map, plus research zones for competition and demand.",
+    image: marketImg,
+    alt: "Fresh vegetables and fruit stacked at a Delhi market stall",
+  },
+];
+
 function Landing() {
   return (
     <div className="flex min-h-dvh flex-col">
       <PublicHeader />
       <main className="flex-1">
-        <section className="px-4 pb-12 pt-10 sm:px-6 sm:pt-14">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.18em] text-saffron">
-                A CLEARER FIRST STEP FOR EVERY BUSINESS
-              </p>
-              <h1 className="mt-3 max-w-xl text-4xl font-semibold leading-[1.1] text-primary sm:text-5xl">
-                Welcome to Sahiti
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-                Plan a loan, gather papers, and read your local market before you put money in.
-              </p>
-              <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground">
-                <li className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-primary" aria-hidden="true" />
-                  Plan with clarity
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-saffron" aria-hidden="true" />
-                  In your language
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-success" aria-hidden="true" />
-                  Built for real places
-                </li>
-              </ul>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild className="h-12 px-6 text-base">
-                  <Link to="/auth">Get Started</Link>
-                </Button>
-                <Button asChild variant="outline" className="h-12 px-6 text-base">
-                  <Link to="/about">About the project</Link>
-                </Button>
-              </div>
-            </div>
+        <section className="relative isolate min-h-[min(78dvh,44rem)] overflow-hidden bg-primary text-primary-foreground">
+          <img
+            src={heroImg}
+            alt=""
+            className="sahiti-hero-media absolute inset-0 size-full object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/88 to-primary/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/75 via-transparent to-primary/25" />
 
-            <figure className="overflow-hidden rounded-lg border bg-card shadow-[0_18px_50px_rgb(30_58_138_/_0.12)]">
-              <img
-                src={heroImg}
-                alt="A neighbourhood market street with small shops and people shopping"
-                className="h-72 w-full object-cover sm:h-96"
-              />
-              <figcaption className="border-t border-saffron/50 bg-card px-5 py-4">
-                <p className="text-xs font-semibold tracking-wide text-saffron">Before you commit</p>
-                <p className="mt-1 text-lg font-semibold text-primary">See the path more clearly.</p>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                  Understand options, check the numbers, and move with a plan that fits your place.
-                </p>
-              </figcaption>
-            </figure>
+          <div className="relative mx-auto flex min-h-[min(78dvh,44rem)] max-w-7xl flex-col justify-end px-4 pb-14 pt-24 sm:px-6 sm:pb-16 sm:pt-28">
+            <p className="sahiti-reveal sahiti-kicker text-saffron">Smart India Hackathon 2026</p>
+            <h1 className="sahiti-reveal sahiti-reveal-delay mt-4 max-w-3xl font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Sahiti
+            </h1>
+            <p className="sahiti-reveal sahiti-reveal-delay-2 mt-5 max-w-xl text-lg leading-8 text-white/88 sm:text-xl">
+              Plan a loan, gather papers, and read your local market before you put money in.
+            </p>
+            <div className="sahiti-reveal sahiti-reveal-delay-2 mt-9 flex flex-wrap gap-3">
+              <Button
+                asChild
+                className="h-12 bg-saffron px-7 text-base font-semibold text-foreground hover:bg-saffron/90"
+              >
+                <Link to="/auth">Get Started</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="h-12 border-white/35 bg-white/5 px-7 text-base text-white hover:bg-white/12 hover:text-white"
+              >
+                <Link to="/about">About the project</Link>
+              </Button>
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid gap-4 lg:grid-cols-3">
-            <article className="overflow-hidden rounded-lg border bg-card lg:col-span-2">
-              <img
-                src={shopImg}
-                alt="Interior of a small neighbourhood grocery shop"
-                className="h-48 w-full object-cover"
-              />
-              <div className="p-5">
-                <p className="text-xs font-semibold text-primary">01 Loan calculator</p>
-                <h2 className="mt-1 text-lg font-semibold">Find the monthly EMI from your own savings.</h2>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Margin capital sets project cost, loan size, and a repayment table you can read.
-                </p>
-              </div>
-            </article>
-            <article className="overflow-hidden rounded-lg border bg-card">
-              <img
-                src={documentsImg}
-                alt="Business papers, a calculator and a file on a desk"
-                className="h-48 w-full object-cover"
-              />
-              <div className="p-5">
-                <p className="text-xs font-semibold text-primary">02 Document guide</p>
-                <h2 className="mt-1 text-lg font-semibold">Know which papers the bank will ask for.</h2>
-              </div>
-            </article>
-            <article className="rounded-lg border bg-card p-5">
-              <p className="text-xs font-semibold text-primary">03 ROI tracker</p>
-              <h2 className="mt-2 text-lg font-semibold">See how a month of sales and costs actually landed.</h2>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Log figures, get a risk rating you can argue with, then match a scheme.
-              </p>
-            </article>
-            <article className="overflow-hidden rounded-lg border bg-card lg:col-span-2">
-              <div className="grid sm:grid-cols-2">
-                <img
-                  src={marketImg}
-                  alt="Shop fronts along a Pune suburban market road"
-                  className="h-48 w-full object-cover sm:h-full"
-                />
-                <div className="p-5">
-                  <p className="text-xs font-semibold text-primary">04 Market check</p>
-                  <h2 className="mt-1 text-lg font-semibold">
-                    Real shops on the Lohegaon map, plus research zones.
-                  </h2>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    Study competition, demand and costs before you commit.
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="max-w-2xl">
+            <p className="sahiti-kicker text-primary">How Sahiti helps</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-primary sm:text-4xl">
+              From first market check to a confident next move.
+            </h2>
+          </div>
+
+          <div className="mt-12 space-y-14">
+            {STEPS.map((step, index) => (
+              <article
+                key={step.n}
+                className={`grid items-center gap-8 lg:grid-cols-2 ${
+                  index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <div className="overflow-hidden rounded-lg border border-border/80 shadow-[0_18px_50px_rgb(30_58_138_/_0.08)]">
+                  <img
+                    src={step.image}
+                    alt={step.alt}
+                    className="aspect-[16/10] h-full w-full object-cover"
+                  />
+                </div>
+                <div className={index % 2 === 1 ? "lg:pr-8" : "lg:pl-8"}>
+                  <p className="text-xs font-semibold tracking-[0.18em] text-saffron">{step.n}</p>
+                  <h3 className="mt-3 font-display text-2xl font-semibold text-primary sm:text-3xl">
+                    {step.title}
+                  </h3>
+                  <p className="mt-4 max-w-md text-base leading-7 text-muted-foreground">
+                    {step.body}
                   </p>
                 </div>
-              </div>
-            </article>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="mx-auto mt-10 max-w-7xl px-4 pb-16 sm:px-6">
-          <div className="flex items-center gap-4 overflow-hidden rounded-lg border bg-card">
-            <img
-              src={shopImg}
-              alt=""
-              className="hidden h-24 w-36 object-cover sm:block"
-            />
-            <div className="flex flex-1 flex-wrap items-center justify-between gap-3 px-5 py-4">
-              <div>
-                <p className="text-xs font-semibold tracking-wide text-saffron">
-                  MADE FOR THE EVERYDAY ENTREPRENEUR
-                </p>
-                <p className="mt-1 text-sm text-foreground">
-                  From the first market check to the next confident move, Sahiti keeps the numbers
-                  close to real life.
-                </p>
-              </div>
+        <section className="border-y bg-primary text-primary-foreground">
+          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-14 sm:flex-row sm:items-end sm:justify-between sm:px-6">
+            <div className="max-w-xl">
+              <p className="sahiti-kicker text-saffron">Made for the everyday entrepreneur</p>
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Clearer decisions. Local context.
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-white/75">
+                Keep loan numbers, documents, and the Lohegaon map close to real life — not buried
+                in a brochure.
+              </p>
             </div>
+            <Button
+              asChild
+              className="h-12 shrink-0 bg-saffron px-7 text-base font-semibold text-foreground hover:bg-saffron/90"
+            >
+              <Link to="/auth">Open Sahiti</Link>
+            </Button>
           </div>
-          <p className="mt-6 text-xs leading-5 text-muted-foreground">
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+          <p className="max-w-3xl text-xs leading-5 text-muted-foreground">
             Prototype for Smart India Hackathon 2026, MoSJE problem statement 26091. Market and map
             figures shown in the app are demonstration research, not official data.
           </p>

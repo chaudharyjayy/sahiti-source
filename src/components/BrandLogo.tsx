@@ -20,10 +20,17 @@ export function BrandLogo({
         )}
       />
       <span className={cn("text-left leading-tight", invert ? "text-white" : "text-foreground")}>
-        <span className={cn("block font-semibold", compact ? "text-sm" : "text-lg")}>Sahiti</span>
         <span
           className={cn(
-            "block",
+            "block font-display font-semibold tracking-tight",
+            compact ? "text-base" : "text-xl",
+          )}
+        >
+          Sahiti
+        </span>
+        <span
+          className={cn(
+            "block font-sans",
             compact ? "text-[10px]" : "text-[11px]",
             invert ? "text-white/75" : "text-muted-foreground",
           )}

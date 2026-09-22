@@ -106,14 +106,15 @@ function Auth() {
       <section className="relative hidden overflow-hidden lg:block">
         <img
           src={authPortrait}
-          alt="A shopkeeper standing in a small hardware store"
+          alt="Glass jars of Indian masala spices on shop shelves"
           className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/80" />
         <div className="relative flex h-full flex-col justify-between p-12 text-white">
           <BrandLogo invert />
           <div>
-            <h1 className="max-w-lg text-4xl font-semibold leading-tight">
+            <p className="sahiti-kicker text-saffron">Sahiti</p>
+            <h1 className="mt-4 max-w-lg font-display text-5xl font-semibold leading-[1.08] tracking-tight">
               Clearer decisions. Local context.
             </h1>
             <p className="mt-6 max-w-md text-base leading-8 text-white/85">
@@ -126,7 +127,7 @@ function Auth() {
       </section>
 
       <section className="flex items-center justify-center bg-background p-4 sm:p-8">
-        <div className="w-full max-w-md rounded-lg border bg-card p-6 shadow-[0_18px_50px_rgb(30_58_138_/_0.08)] sm:p-8">
+        <div className="sahiti-panel w-full max-w-md p-6 sm:p-8">
           <div className="mb-8 h-1 w-12 rounded-full bg-saffron" />
           <div className="mb-9 lg:hidden">
             <BrandLogo />
@@ -134,7 +135,7 @@ function Auth() {
           <p className="text-sm font-semibold text-primary">
             {mode === "login" ? "Welcome back" : "Create your account"}
           </p>
-          <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">
+          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-[2rem]">
             {mode === "login" ? "Sign in to Sahiti" : "Start planning your business"}
           </h2>
 

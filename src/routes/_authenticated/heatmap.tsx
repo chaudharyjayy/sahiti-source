@@ -165,9 +165,14 @@ function Heatmap() {
   const { data: googleConfig } = useQuery({
     queryKey: ["google-places-capability"],
     queryFn: async () => {
-      const response = await fetch("/api/places");
-      if (!response.ok) return { enabled: false };
-      return (await response.json()) as { enabled: boolean };
+      try {
+        const response = await fetch("/api/places");
+        if (!response.ok) return { enabled: false };
+        const body = (await response.json()) as { enabled?: boolean };
+        return { enabled: Boolean(body.enabled) };
+      } catch {
+        return { enabled: false };
+      }
     },
     staleTime: Infinity,
   });
@@ -228,6 +233,10 @@ function Heatmap() {
         radius: 2000,
         ...(categoryFilter === "All" ? {} : { category: categoryFilter }),
       });
+      if (results === null) {
+        setGoogleShops(null);
+        return;
+      }
       setGoogleShops(results);
     } catch {
       setGoogleError("Google did not answer. Try again in a moment.");

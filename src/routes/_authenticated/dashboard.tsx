@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Calculator, Map, MessageCircle, Newspaper } from "lucide-react";
+import { ArrowUpRight, Calculator, Map, MessageCircle, Newspaper } from "lucide-react";
 import marketImg from "@/assets/market-cluster.jpg";
 import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -98,16 +98,16 @@ function Dashboard() {
 
   return (
     <>
-      <section className="relative mb-8 overflow-hidden rounded-lg border">
+      <section className="relative mb-8 overflow-hidden rounded-lg border shadow-[0_18px_50px_rgb(30_58_138_/_0.1)]">
         <img
           src={marketImg}
-          alt="Shop fronts along a Pune suburban market road"
-          className="h-36 w-full object-cover sm:h-44"
+          alt="Fresh vegetables and fruit stacked at a Delhi market stall"
+          className="h-40 w-full object-cover sm:h-48"
         />
-        <div className="absolute inset-0 bg-primary/55" />
-        <div className="absolute inset-0 flex flex-col justify-end p-5 text-white">
-          <p className="text-xs font-semibold tracking-wide text-saffron">Your business snapshot</p>
-          <p className="mt-1 max-w-xl text-sm text-white/90">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/60 to-primary/35" />
+        <div className="absolute inset-0 flex flex-col justify-end p-5 text-white sm:p-6">
+          <p className="sahiti-kicker text-saffron">Your business snapshot</p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-white/90">
             Figures come from months you log in the ROI tracker. Map and scheme tools sit one tap
             away.
           </p>
@@ -133,11 +133,13 @@ function Dashboard() {
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
       >
         {stats.map((stat) => (
-          <div key={stat.label} className="rounded-lg border border-t-4 border-t-saffron bg-card p-5">
+          <div key={stat.label} className="sahiti-panel border-t-4 border-t-saffron p-5">
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {stat.label}
             </p>
-            <p className="mt-2 text-xl font-semibold">{stat.value}</p>
+            <p className="mt-2 font-display text-2xl font-semibold tabular-nums text-primary">
+              {stat.value}
+            </p>
           </div>
         ))}
       </section>
@@ -152,30 +154,44 @@ function Dashboard() {
           <Link
             key={item.to}
             to={item.to}
-            className="rounded-lg border bg-card p-5 hover:border-primary focus-visible:border-primary"
+            className="sahiti-panel sahiti-panel-hover group flex items-start gap-4 p-5"
           >
-            <item.icon aria-hidden="true" className="size-5 text-primary" />
-            <h2 className="mt-3 text-base font-semibold">{item.title}</h2>
-            <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.body}</p>
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/8 text-primary">
+              <item.icon aria-hidden="true" className="size-5" />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-2">
+                <h2 className="font-display text-lg font-semibold text-primary">{item.title}</h2>
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="size-4 text-muted-foreground opacity-0 transition group-hover:opacity-100"
+                />
+              </span>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.body}</p>
+            </span>
           </Link>
         ))}
       </section>
 
       <section aria-label="Milestones" className="mt-10">
-        <h2 className="text-lg font-semibold">Recent milestones</h2>
+        <h2 className="font-display text-xl font-semibold text-primary">Recent milestones</h2>
         {data?.milestones.length ? (
           <ul className="mt-4 space-y-3">
             {data.milestones.map((milestone) => (
-              <li key={milestone.id} className="rounded-md border p-4 text-sm">
+              <li key={milestone.id} className="sahiti-panel flex items-center justify-between gap-3 p-4 text-sm">
                 <span className="font-medium">{milestone.title}</span>
-                <span className="ml-2 text-muted-foreground">{milestone.achieved_on}</span>
+                <span className="shrink-0 tabular-nums text-muted-foreground">
+                  {milestone.achieved_on}
+                </span>
               </li>
             ))}
           </ul>
         ) : (
-          <p className="mt-3 text-sm text-muted-foreground">
-            Nothing here yet. Add milestones from your profile as you go.
-          </p>
+          <div className="sahiti-panel mt-4 p-5">
+            <p className="text-sm text-muted-foreground">
+              Nothing here yet. Add milestones from your profile as you go.
+            </p>
+          </div>
         )}
       </section>
     </>

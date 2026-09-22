@@ -53,18 +53,18 @@ export function AppShell({ children }: { children: ReactNode }) {
   function navClass(to: string) {
     const active = pathname === to || pathname.startsWith(`${to}/`);
     return cn(
-      "flex items-center gap-3 rounded-sm px-3 py-2 text-sm font-medium",
+      "relative flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium",
       active
-        ? "bg-primary text-primary-foreground"
-        : "text-foreground hover:bg-secondary hover:text-primary",
+        ? "bg-primary text-primary-foreground shadow-sm"
+        : "text-foreground/80 hover:bg-secondary hover:text-primary",
     );
   }
 
   return (
     <div className="min-h-dvh bg-background">
-      <header className="sticky top-0 z-40 bg-primary text-primary-foreground">
+      <header className="sticky top-0 z-40 bg-primary text-primary-foreground shadow-[0_8px_28px_rgb(24_37_58_/_0.18)]">
         <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 px-4 sm:px-6">
-          <Link to="/dashboard" aria-label="Sahiti dashboard">
+          <Link to="/dashboard" aria-label="Sahiti dashboard" className="justify-self-start">
             <BrandLogo compact invert />
           </Link>
           <div className="flex min-w-0 justify-center">
@@ -88,7 +88,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
         <div className="sahiti-saffron-bar" />
         <nav
-          className="mx-auto hidden max-w-7xl items-center justify-center gap-1 bg-background px-4 py-2 text-foreground lg:flex sm:px-6"
+          className="mx-auto hidden max-w-7xl items-center justify-center gap-1 border-b border-border/70 bg-background/95 px-4 py-2 text-foreground backdrop-blur lg:flex sm:px-6"
           aria-label="Main navigation"
         >
           {links.map((link) => (
@@ -99,9 +99,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           ))}
         </nav>
       </header>
-      <main className="mx-auto w-full max-w-7xl px-4 pb-24 pt-8 sm:px-6 lg:pb-8">{children}</main>
+      <main className="mx-auto w-full max-w-7xl px-4 pb-24 pt-8 sm:px-6 lg:pb-10">{children}</main>
       <nav
-        className="sahiti-mobile-nav fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
+        className="sahiti-mobile-nav fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgb(24_37_58_/_0.06)] backdrop-blur lg:hidden"
         aria-label="Primary mobile navigation"
       >
         <div className="mx-auto grid h-16 max-w-lg grid-cols-4">
@@ -114,10 +114,16 @@ export function AppShell({ children }: { children: ReactNode }) {
                 aria-label={link.ariaLabel}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium",
+                  "relative flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium",
                   active ? "text-primary" : "text-muted-foreground hover:text-foreground",
                 )}
               >
+                {active ? (
+                  <span
+                    className="absolute inset-x-5 top-0 h-0.5 rounded-full bg-saffron"
+                    aria-hidden="true"
+                  />
+                ) : null}
                 <link.icon aria-hidden="true" className="size-5 shrink-0" />
                 <span className="w-full truncate text-center">{link.label}</span>
               </Link>

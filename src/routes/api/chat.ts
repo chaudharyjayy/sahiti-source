@@ -1,6 +1,7 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { createFileRoute } from "@tanstack/react-router";
-import { streamText } from "ai";
+import { generateText } from "ai";
+import { serverSecret } from "@/lib/loadDotEnv";
 
 const SYSTEM_PROMPT = `You are Sahiti, a business advisory assistant for rural micro-entrepreneurs in India.
 
@@ -10,48 +11,59 @@ Style: simple, plain language, short sentences and short paragraphs. Use Indian 
 
 Honesty: you are not a bank, lender or licensed adviser. Scheme rates, eligibility and document requirements change, so tell the user to confirm with their bank branch or the official scheme portal. Never promise approval or guaranteed returns. Never ask for Aadhaar, PAN, bank account or card numbers.`;
 
+function jsonError(error: string, status: number): Response {
+  return new Response(JSON.stringify({ error }), {
+    status,
+    headers: { "content-type": "application/json" },
+  });
+}
+
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env["GEMINI_API_KEY"];
+        const apiKey = serverSecret("GEMINI_API_KEY");
         if (!apiKey) {
-          return new Response(JSON.stringify({ error: "AI is not configured" }), {
-            status: 500,
-            headers: { "content-type": "application/json" },
-          });
+          return jsonError(
+            "AI is not configured. Add GEMINI_API_KEY to .env and restart the server.",
+            503,
+          );
         }
 
-        const body = (await request.json()) as {
-          messages?: { role: "user" | "assistant"; content: string }[];
-        };
+        let body: { messages?: { role: "user" | "assistant"; content: string }[] };
+        try {
+          body = (await request.json()) as typeof body;
+        } catch {
+          return jsonError("Request body must be JSON", 400);
+        }
         const messages = (body.messages ?? []).slice(-20);
         if (messages.length === 0) {
-          return new Response(JSON.stringify({ error: "No messages supplied" }), {
-            status: 400,
-            headers: { "content-type": "application/json" },
-          });
+          return jsonError("No messages supplied", 400);
         }
 
-        // Gemini's OpenAI-compatible endpoint — no extra package needed.
+        const modelId = serverSecret("GEMINI_MODEL") ?? "gemini-3.6-flash";
         const gemini = createOpenAI({
           baseURL: "https://generativelanguage.googleapis.com/v1beta/openai",
           apiKey,
         });
 
         try {
-          const result = streamText({
-            model: gemini.chat("gemini-3.6-flash"),
+          const result = await generateText({
+            model: gemini.chat(modelId),
             system: SYSTEM_PROMPT,
             messages,
+            maxRetries: 1,
           });
-          return result.toTextStreamResponse();
+          if (!result.text.trim()) {
+            return jsonError("The assistant returned an empty reply. Try again.", 502);
+          }
+          return new Response(result.text, {
+            headers: { "content-type": "text/plain; charset=utf-8" },
+          });
         } catch (error) {
           const message = error instanceof Error ? error.message : "The assistant is unavailable";
-          return new Response(JSON.stringify({ error: message }), {
-            status: 502,
-            headers: { "content-type": "application/json" },
-          });
+          console.error("[chat]", modelId, message);
+          return jsonError(message, 502);
         }
       },
     },
