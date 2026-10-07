@@ -15,10 +15,10 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AuthenticatedAiRouteImport } from './routes/_authenticated/ai'
 import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
 import { Route as AuthenticatedCalculationsRouteImport } from './routes/_authenticated/calculations'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
 import { Route as AuthenticatedHeatmapRouteImport } from './routes/_authenticated/heatmap'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -54,6 +54,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAiRoute = AuthenticatedAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
   id: '/assistant',
   path: '/assistant',
@@ -68,11 +73,6 @@ const AuthenticatedCalculationsRoute =
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
-  id: '/feed',
-  path: '/feed',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedHeatmapRoute = AuthenticatedHeatmapRouteImport.update({
@@ -107,10 +107,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/ai': typeof AuthenticatedAiRoute
   '/assistant': typeof AuthenticatedAssistantRoute
   '/calculations': typeof AuthenticatedCalculationsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/feed': typeof AuthenticatedFeedRoute
   '/heatmap': typeof AuthenticatedHeatmapRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -123,10 +123,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/ai': typeof AuthenticatedAiRoute
   '/assistant': typeof AuthenticatedAssistantRoute
   '/calculations': typeof AuthenticatedCalculationsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/feed': typeof AuthenticatedFeedRoute
   '/heatmap': typeof AuthenticatedHeatmapRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -141,10 +141,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/ai': typeof AuthenticatedAiRoute
   '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
   '/_authenticated/calculations': typeof AuthenticatedCalculationsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/heatmap': typeof AuthenticatedHeatmapRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -159,10 +159,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/privacy'
     | '/terms'
+    | '/ai'
     | '/assistant'
     | '/calculations'
     | '/dashboard'
-    | '/feed'
     | '/heatmap'
     | '/profile'
     | '/settings'
@@ -175,10 +175,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/privacy'
     | '/terms'
+    | '/ai'
     | '/assistant'
     | '/calculations'
     | '/dashboard'
-    | '/feed'
     | '/heatmap'
     | '/profile'
     | '/settings'
@@ -192,10 +192,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/privacy'
     | '/terms'
+    | '/_authenticated/ai'
     | '/_authenticated/assistant'
     | '/_authenticated/calculations'
     | '/_authenticated/dashboard'
-    | '/_authenticated/feed'
     | '/_authenticated/heatmap'
     | '/_authenticated/profile'
     | '/_authenticated/settings'
@@ -258,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/ai': {
+      id: '/_authenticated/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AuthenticatedAiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/assistant': {
       id: '/_authenticated/assistant'
       path: '/assistant'
@@ -277,13 +284,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/feed': {
-      id: '/_authenticated/feed'
-      path: '/feed'
-      fullPath: '/feed'
-      preLoaderRoute: typeof AuthenticatedFeedRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/heatmap': {
@@ -325,20 +325,20 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAiRoute: typeof AuthenticatedAiRoute
   AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
   AuthenticatedCalculationsRoute: typeof AuthenticatedCalculationsRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedHeatmapRoute: typeof AuthenticatedHeatmapRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAiRoute: AuthenticatedAiRoute,
   AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
   AuthenticatedCalculationsRoute: AuthenticatedCalculationsRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedHeatmapRoute: AuthenticatedHeatmapRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,

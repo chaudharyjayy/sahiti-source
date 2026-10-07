@@ -7,10 +7,14 @@ import type { Shop, ShopCategory, ShopLocality } from "./shops";
  */
 
 export type CorridorSaturation =
+<<<<<<< HEAD
   | "LOW RISK (HIGH OPPORTUNITY)"
   | "MODERATE RISK"
   | "HIGH RISK"
   | string;
+=======
+  "LOW RISK (HIGH OPPORTUNITY)" | "MODERATE RISK" | "HIGH RISK" | string;
+>>>>>>> refs/remotes/origin/cursor/navy-visual-and-feed
 
 export type CorridorBusiness = {
   id: number | string;
@@ -109,12 +113,25 @@ export function corridorBusinessesToShops(
       lng: row.lon,
       source: "adypu-corridor",
       corridor: {
+<<<<<<< HEAD
         zone: row.corridor_zone,
         distToAdypuKm: row.dist_to_adypu_km,
         distToLohegaonKm: row.dist_to_lohegaon_km,
         density400m: row.total_commercial_density_400m,
         riskColor: riskColor(row),
         dataSource: row.data_source,
+=======
+        ...(row.corridor_zone ? { zone: row.corridor_zone } : {}),
+        ...(row.dist_to_adypu_km !== undefined ? { distToAdypuKm: row.dist_to_adypu_km } : {}),
+        ...(row.dist_to_lohegaon_km !== undefined
+          ? { distToLohegaonKm: row.dist_to_lohegaon_km }
+          : {}),
+        ...(row.total_commercial_density_400m !== undefined
+          ? { density400m: row.total_commercial_density_400m }
+          : {}),
+        ...(riskColor(row) ? { riskColor: riskColor(row)! } : {}),
+        ...(row.data_source ? { dataSource: row.data_source } : {}),
+>>>>>>> refs/remotes/origin/cursor/navy-visual-and-feed
       },
       ...(Number.isFinite(row.rating) ? { rating: row.rating } : {}),
       ...(Number.isFinite(row.review_count) ? { reviewCount: row.review_count } : {}),

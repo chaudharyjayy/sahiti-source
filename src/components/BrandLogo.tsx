@@ -1,13 +1,19 @@
 import emblemUrl from "@/assets/sahiti-official-emblem.png";
+import { useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export function BrandLogo({
   compact = false,
   invert = false,
+  /** Drop the sub-line in tight header lockups (BUG-06). */
+  hideSubtitle = false,
 }: {
   compact?: boolean;
   invert?: boolean;
+  hideSubtitle?: boolean;
 }) {
+  const { t } = useLanguage();
+
   return (
     <span className="inline-flex items-center gap-2" aria-label="Sahiti">
       <img
@@ -28,15 +34,17 @@ export function BrandLogo({
         >
           Sahiti
         </span>
-        <span
-          className={cn(
-            "block font-sans",
-            compact ? "text-[10px]" : "text-[11px]",
-            invert ? "text-white/75" : "text-muted-foreground",
-          )}
-        >
-          By Team Sahiti
-        </span>
+        {hideSubtitle ? null : (
+          <span
+            className={cn(
+              "block font-sans",
+              compact ? "text-[10px]" : "text-[11px]",
+              invert ? "text-white/75" : "text-muted-foreground",
+            )}
+          >
+            {t("brandByTeam")}
+          </span>
+        )}
       </span>
     </span>
   );

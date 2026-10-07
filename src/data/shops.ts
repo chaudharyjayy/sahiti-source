@@ -168,7 +168,10 @@ export const OSM_SHOP_TAG_CATEGORY: Record<string, ShopCategory> = {
 };
 
 export const OSM_SHOPS: Shop[] = [
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/cursor/navy-visual-and-feed
   // ---- Hardware ----
   {
     id: "hw-1",
@@ -309,7 +312,8 @@ export const OSM_SHOPS: Shop[] = [
     lat: 18.550955,
     lng: 73.937653,
     pincode: "411014",
-    website: "https://stores.reliancesmartbazaar.com/reliance-smart-superstore-shopping-outlet-haveli-pune-280435/Home",
+    website:
+      "https://stores.reliancesmartbazaar.com/reliance-smart-superstore-shopping-outlet-haveli-pune-280435/Home",
     openingHours: "08:00-22:00",
     payments: ["Cash", "Cards", "Debit cards"],
     osmRef: "node/1316290929",
@@ -728,7 +732,8 @@ export const OSM_SHOPS: Shop[] = [
     street: "Bhavadi Road",
     pincode: "412207",
     phone: "7947131829",
-    openingHours: "Mon - Wed 10:30 am - 2:00 pm 5:00 pm - 8:30 pm; Fri- Sat 10:30 am - 2:00 pm 5:00 pm - 8:30 pm",
+    openingHours:
+      "Mon - Wed 10:30 am - 2:00 pm 5:00 pm - 8:30 pm; Fri- Sat 10:30 am - 2:00 pm 5:00 pm - 8:30 pm",
     payments: ["Cash", "UPI apps"],
     osmRef: "node/11924657237",
   },
@@ -1189,9 +1194,7 @@ export const OSM_SHOPS: Shop[] = [
 export function formatShopAddress(shop: Shop): string {
   const street = [shop.shopNo, shop.street].filter(Boolean).join(" ");
   const parts = [street, shop.pincode].filter((part) => part && part.length > 0);
-  return parts.length > 0
-    ? parts.join(" · ")
-    : "Address not recorded in OpenStreetMap";
+  return parts.length > 0 ? parts.join(" · ") : "Address not recorded in OpenStreetMap";
 }
 
 /** Coordinates to OpenStreetMap's usual 5 decimal places. */

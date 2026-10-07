@@ -1,42 +1,24 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import {
-  Calculator,
-  LayoutDashboard,
-  LogOut,
-  Map,
-  MessageCircle,
-  Newspaper,
-  Settings,
-  UserRound,
-} from "lucide-react";
+import { Calculator, LogOut, Map, Newspaper, Sparkles, UserRound } from "lucide-react";
 import type { ReactNode } from "react";
 import { BrandLogo } from "./BrandLogo";
-import { LocationSwitcher } from "./LocationSwitcher";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/lib/i18n";
 import { useSession } from "@/lib/session";
 import { cn } from "@/lib/utils";
 
+/**
+ * Sahiti has four destinations after sign-in: the Live feed (home), Sahiti AI,
+ * the Risk map, and Business calculations. Every other path still exists but is
+ * reached from inside these pages, so the nav never offers two ways into the
+ * same feature.
+ */
 const links = [
-  { to: "/dashboard" as const, key: "dashboard", icon: LayoutDashboard },
-  { to: "/calculations" as const, key: "calculations", icon: Calculator },
-  { to: "/feed" as const, key: "feed", icon: Newspaper },
+  { to: "/dashboard" as const, key: "feed", icon: Newspaper },
+  { to: "/ai" as const, key: "assistant", icon: Sparkles },
   { to: "/heatmap" as const, key: "heatmap", icon: Map },
-  { to: "/assistant" as const, key: "assistant", icon: MessageCircle },
-  { to: "/profile" as const, key: "profile", icon: UserRound },
-  { to: "/settings" as const, key: "settings", icon: Settings },
-];
-
-const mobileLinks = [
-  {
-    to: "/calculations" as const,
-    label: "Calculate",
-    ariaLabel: "Run a Calculation",
-    icon: Calculator,
-  },
-  { to: "/feed" as const, label: "Feed", ariaLabel: "Business Feed", icon: Newspaper },
-  { to: "/heatmap" as const, label: "Risk Map", ariaLabel: "Lohegaon Risk Map", icon: Map },
-  { to: "/assistant" as const, label: "Ask Sahiti", ariaLabel: "Ask Sahiti", icon: MessageCircle },
+  { to: "/calculations" as const, key: "calculations", icon: Calculator },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -64,13 +46,18 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-dvh bg-background">
       <header className="sticky top-0 z-40 bg-primary text-primary-foreground shadow-[0_8px_28px_rgb(24_37_58_/_0.18)]">
         <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 px-4 sm:px-6">
-          <Link to="/dashboard" aria-label="Sahiti dashboard" className="justify-self-start">
-            <BrandLogo compact invert />
+          {/* Logo owns the centre column so the header reads as one lockup (BUG-01). */}
+          <Link
+            to="/dashboard"
+            aria-label="Sahiti dashboard"
+            className="order-2 justify-self-center"
+          >
+            <BrandLogo compact invert hideSubtitle />
           </Link>
-          <div className="flex min-w-0 justify-center">
-            <LocationSwitcher />
+          <div className="order-1 flex min-w-0 items-center gap-1">
+            <LanguageSwitcher />
           </div>
-          <div className="flex items-center justify-end gap-2">
+          <div className="order-3 flex items-center justify-end gap-2">
             <Button
               variant="outline"
               className="hidden border-white/30 bg-transparent text-white hover:bg-white/10 lg:inline-flex"
@@ -79,16 +66,23 @@ export function AppShell({ children }: { children: ReactNode }) {
               <LogOut aria-hidden="true" className="size-4" />
               {t("logout")}
             </Button>
-            <Button asChild variant="ghost" size="icon" className="text-white hover:bg-white/10 lg:hidden">
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/10 lg:hidden"
+            >
               <Link to="/profile" aria-label={t("profile")}>
                 <UserRound aria-hidden="true" className="size-5" />
               </Link>
             </Button>
           </div>
         </div>
-        <div className="sahiti-saffron-bar" />
+        <div className="sahiti-saffron-bar" />{" "}
+        {/* Desktop secondary nav scrolls with the page, so the sticky header
+              stays one bar tall and the content starts higher (BUG-03). */}
         <nav
-          className="mx-auto hidden max-w-7xl items-center justify-center gap-1 border-b border-border/70 bg-background/95 px-4 py-2 text-foreground backdrop-blur lg:flex sm:px-6"
+          className="relative z-40 mx-auto hidden max-w-7xl items-center justify-center gap-1 border-b border-border/70 bg-background px-4 py-2 text-foreground lg:flex sm:px-6"
           aria-label="Main navigation"
         >
           {links.map((link) => (
@@ -105,13 +99,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         aria-label="Primary mobile navigation"
       >
         <div className="mx-auto grid h-16 max-w-lg grid-cols-4">
-          {mobileLinks.map((link) => {
+          {links.map((link) => {
             const active = pathname === link.to || pathname.startsWith(`${link.to}/`);
             return (
               <Link
                 key={link.to}
                 to={link.to}
-                aria-label={link.ariaLabel}
+                aria-label={t(link.key)}
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[11px] font-medium",
@@ -125,7 +119,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   />
                 ) : null}
                 <link.icon aria-hidden="true" className="size-5 shrink-0" />
-                <span className="w-full truncate text-center">{link.label}</span>
+                <span className="w-full truncate text-center">{t(link.key)}</span>
               </Link>
             );
           })}
